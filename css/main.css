@@ -1,0 +1,222 @@
+:root {
+    --main-background-color: #f5f5f5;
+    --side-background-color: #353535;
+    
+    --highlight-color: #FF7F02;
+}
+
+@font-face {
+    font-family: 'heading';
+    src: url('../fonts/Muli-Black.ttf') format('truetype');
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: 'body';
+    src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+    font-display: fallback;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: #000;
+    display: flex;
+    align-items: stretch;
+}
+
+.main {
+    background-color: var(--main-background-color);
+    flex-grow: 1;
+    min-width: 100px;
+    display: flex;
+    width: 100vw;
+    position: relative;
+}
+
+.header {
+    background-color: var(--side-background-color);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2em;
+    height: 4rem;
+    align-items: baseline;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    -webkit-app-region: drag;
+    font-family: 'body', 'Arial', sans-serif;
+}
+
+.header a {
+    color: inherit;
+    font-size: inherit;
+    text-decoration: inherit;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: var(--highlight-color);
+    margin: 0;
+    padding: 0.67em 0;
+}
+
+.header .links {
+    font-size: 14px;
+    color: #AAA;
+    margin: 0;
+    font-weight: bold;
+}
+
+@media all and (max-width: 640px) {
+    .header .links {
+        display: none;
+    }
+}
+
+.dropzone {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.placeholder {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 0.5em;
+    background: #EEE;
+    padding: 2em;
+    text-align: center;
+}
+
+.placeholder p {
+    cursor: default;
+    font-size: 1.2rem;
+    color: #999;
+}
+
+.upload-btn {
+    margin-top: 2em;
+}
+
+.upload-btn input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.upload-btn label {
+    color: #353535;
+    border: 0;
+    border-radius: 3px;
+    transition: ease 0.2s background;
+    font-size: 1rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+}
+
+.upload-btn svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    margin-right: 0.25em;
+}
+
+.pre-model {
+    cursor: default;
+    margin-top: 2em;
+}
+
+.pre-model span {
+    color: #ff8102b2;
+    cursor: pointer;
+}
+
+.viewer {
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+    position: absolute;
+    top: 0;
+}
+
+.lil-gui {
+    top: 64px !important;
+    --number-color: #ff8002;
+	--string-color: lightgreen;
+	z-index: 2 !important; /* TODO Solve this in HTML */
+}
+
+@media all and (max-width: 640px) {
+	.lil-gui.root { 
+		max-height: 50%;
+		max-width: 80%;
+	}
+}
+
+/******************************************************************************
+ * CSS Spinner
+ *
+ * http://tobiasahlin.com/spinkit/
+ */
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -20px;
+  
+    background-color: #333;
+  
+    border-radius: 100%;
+    -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+    animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+  
+@-webkit-keyframes sk-scaleout {
+    0% { -webkit-transform: scale(0) }
+    100% {
+    	-webkit-transform: scale(1.0);
+      	opacity: 0;
+    }
+}
+  
+@keyframes sk-scaleout {
+    0% {
+      	-webkit-transform: scale(0);
+      	transform: scale(0);
+	} 
+	100% {
+      	-webkit-transform: scale(1.0);
+      	transform: scale(1.0);
+      	opacity: 0;
+    }
+}
+
+/* nanobar */
+
+.bar {
+    background: var(--highlight-color) !important;
+}

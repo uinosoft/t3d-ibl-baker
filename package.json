@@ -1,0 +1,25 @@
+{
+  "name": "t3d-ibl-baker",
+  "version": "0.0.1",
+  "description": "This is a simple tool to bake IBL maps for t3d",
+  "author": "uino",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^8.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "vite": "^4.1.1"
+  },
+  "dependencies": {
+    "fflate": "^0.8.1",
+    "lil-gui": "^0.19.2",
+    "simple-dropzone": "^0.8.1",
+    "t3d": "0.2.8-beta.0"
+  },
+  "scripts": {
+    "dev": "vite --host --force",
+    "build": "vite build",
+    "eslint": "eslint src",
+    "eslint-fix": "eslint src --fix"
+  }
+}
