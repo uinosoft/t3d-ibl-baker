@@ -188,7 +188,7 @@ body {
     top: 50%;
     margin: -20px;
   
-    background-color: #333;
+    background-color: #ccc;
   
     border-radius: 100%;
     -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
