@@ -6,7 +6,7 @@ import { HDRTextureLoader } from './loaders/HDRTextureLoader.js';
 import { EXRTextureLoader } from './loaders/EXRTextureLoader.js';
 import { EnvExporter } from './exporters/EnvExporter.js';
 import { ImageTextureLoader } from './loaders/ImageTextureLoader.js';
-import { EnvTextureLoader } from './loaders/EnvTextureLoader.js';
+import { EnvTextureCubeLoader } from 't3d/addons/loaders/EnvLoader.js';
 
 export class App {
 
@@ -26,7 +26,7 @@ export class App {
 		this.imageTextureLoader = new ImageTextureLoader();
 		this.hdrTextureLoader = new HDRTextureLoader();
 		this.exrTextureLoader = new EXRTextureLoader();
-		this.envTextureLoader = new EnvTextureLoader();
+		this.envTextureCubeLoader = new EnvTextureCubeLoader();
 
 		// exporters
 
@@ -55,7 +55,7 @@ export class App {
 				this.viewer = new Viewer(viewerEl);
 				this.viewer.startRender();
 
-				this.envTextureLoader.setRenderer(this.viewer.renderer);
+				this.envTextureCubeLoader.setRenderer(this.viewer.renderer);
 			}
 
 			const fileURL = typeof root.file === 'string' ? root.file : URL.createObjectURL(root.file);
@@ -74,7 +74,7 @@ export class App {
 				loadPromise = this.imageTextureLoader.loadAsync(fileURL);
 				needPrefilter = true;
 			} else if (root.file.name.endsWith('.env')) {
-				loadPromise = this.envTextureLoader.loadAsync(fileURL);
+				loadPromise = this.envTextureCubeLoader.loadAsync(fileURL);
 				needPrefilter = false;
 			}
 

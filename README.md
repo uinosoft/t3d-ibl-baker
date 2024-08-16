@@ -2,7 +2,7 @@
 
 This is a simple tool to bake IBL maps for [t3d.js](https://github.com/uinosoft/t3d.js).
 
-[Vist online](https://uinosoft.github.io/t3d-ibl-baker/)
+[Visit online](https://uinosoft.github.io/t3d-ibl-baker/)
 
 ## Features
 
@@ -17,7 +17,7 @@ This is a simple tool to bake IBL maps for [t3d.js](https://github.com/uinosoft/
 
 The `.env` file is used to store baked IBL maps and can be loaded by `t3d.js`.
 
-You can find the EnvTextureLoader here: [EnvTextureLoader](https://github.com/uinosoft/t3d-ibl-baker/blob/master/src/loaders/EnvTextureLoader.js).
+You can find the EnvLoader here: [EnvLoader](https://github.com/uinosoft/t3d.js/blob/dev/examples/jsm/loaders/EnvLoader.js).
 
 ### Format of the `.env` File (v1)
 
