@@ -5,6 +5,7 @@ import { UIControl } from './UIControl.js';
 import { HDRTextureLoader } from './loaders/HDRTextureLoader.js';
 import { EXRTextureLoader } from './loaders/EXRTextureLoader.js';
 import { EnvExporter } from './exporters/EnvExporter.js';
+import { RGBEExporter } from './exporters/RGBEExporter.js';
 import { ImageTextureLoader } from './loaders/ImageTextureLoader.js';
 import { EnvTextureCubeLoader } from 't3d/addons/loaders/EnvLoader.js';
 
@@ -31,6 +32,7 @@ export class App {
 		// exporters
 
 		this.envExporter = new EnvExporter();
+		this.hdrExporter = new RGBEExporter();
 
 		// use dragzone to load textures
 

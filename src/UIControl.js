@@ -5,7 +5,7 @@ export class UIControl {
 	constructor(app) {
 		const gui = new GUI({ title: 'Options' });
 
-		const { viewer, envExporter } = app;
+		const { viewer, envExporter, hdrExporter } = app;
 
 		const previewFolder = gui.addFolder('Preview');
 		previewFolder.add(viewer, 'backgroundLevel', 0, 10, 0.1).name('Background Level');
@@ -22,9 +22,12 @@ export class UIControl {
 		const exportFunctions = {
 			'env': async () => {
 				const buffer = await envExporter.toBuffer(viewer);
-				loadEnvFile(buffer);
+				loadFile(buffer, 'env');
 			},
-			'hdr': () => {},
+			'hdr': () => {
+				const buffer = hdrExporter.toBuffer(viewer);
+				loadFile(buffer, 'hdr');
+			},
 			'dds': () => {}
 		};
 
@@ -32,20 +35,20 @@ export class UIControl {
 		exportFolder.add(viewer, 'rotationY', 0, 360).name('Rotation Y').listen();
 		exportFolder.add(viewer, 'exposure', 0, 10).name('Exposure').disable();
 		exportFolder.add(exportFunctions, 'env').name('Env');
+		exportFolder.add(exportFunctions, 'hdr').name('HDR');
 		exportFolder.add(exportFunctions, 'dds').name('DDS (coming soon)').disable();
-		exportFolder.add(exportFunctions, 'hdr').name('HDR (coming soon)').disable();
 
 		this._gui = gui;
 	}
 
 }
 
-function loadEnvFile(buffer) {
+function loadFile(buffer, type) {
 	const file = new Blob([buffer], { type: 'octet/stream' });
 	const event = new MouseEvent('click');
 	const link = document.createElement('a');
 
-	link.download = 'environment.env';
+	link.download = `environment.${type}`;
 	link.href = URL.createObjectURL(file);
 	link.dataset.downloadurl = ['application/octet-stream', link.download, link.href].join(':');
 	link.dispatchEvent(event);
