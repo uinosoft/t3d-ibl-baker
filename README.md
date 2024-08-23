@@ -10,8 +10,8 @@ This is a simple tool to bake IBL maps for [t3d.js](https://github.com/uinosoft/
 * Adjust the Y-axis rotation of IBL maps.
 * Adjust the exposure of IBL maps. (coming soon)
 * Export to `.env` file, optimized for `t3d.js` with smaller size and faster loading speed.
+* Export to `.hdr` file.
 * Export to `.dds` file. (coming soon)
-* Export to `.hdr` file. (coming soon)
 
 ## ENV Format
 
@@ -52,4 +52,4 @@ The Buffer Data is binary data containing all mipmap data.
 * [ ] Encoding type selection.
 * [ ] Support explosure editing.
 * [ ] Add DDS export.
-* [ ] Add HDR export.
+* [x] Add HDR export.

@@ -1,6 +1,6 @@
 {
   "name": "t3d-ibl-baker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "This is a simple tool to bake IBL maps for t3d",
   "author": "uino",
   "license": "BSD-3-Clause",
