@@ -66,6 +66,7 @@ export class Viewer {
 
 		this._rotationY = 0;
 		this._exposure = 1;
+		this._downScale = 1;
 	}
 
 	get renderer() {
@@ -115,6 +116,14 @@ export class Viewer {
 
 	get exposure() {
 		return this._exposure;
+	}
+
+	set downScale(value) {
+		this._downScale = value;
+	}
+
+	get downScale() {
+		return this._downScale;
 	}
 
 	startRender() {

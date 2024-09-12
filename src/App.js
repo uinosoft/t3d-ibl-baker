@@ -64,7 +64,7 @@ export class App {
 
 			let loadPromise = null, needPrefilter = false;
 
-			console.time('load');
+			console.time('Texture Loaded:');
 
 			if (root.file.name.endsWith('.hdr')) {
 				loadPromise = this.hdrTextureLoader.loadAsync(fileURL);
@@ -100,7 +100,8 @@ export class App {
 
 				URL.revokeObjectURL(fileURL);
 
-				console.timeEnd('load');
+				console.timeEnd('Texture Loaded:');
+				console.log(`Texture Size: ${texture.images[0].width}x${texture.images[0].height}`);
 			});
 		});
 		dropzone.on('dropstart', () => spinnerEl.style.display = '');

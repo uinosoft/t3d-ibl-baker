@@ -34,6 +34,7 @@ export class UIControl {
 		const exportFolder = gui.addFolder('Export');
 		exportFolder.add(viewer, 'rotationY', 0, 360).name('Rotation Y').listen();
 		exportFolder.add(viewer, 'exposure', 0, 10).name('Exposure').disable();
+		exportFolder.add(viewer, 'downScale', 1, 8, 1).name('Down Scale').disable();
 		exportFolder.add(exportFunctions, 'env').name('Env');
 		exportFolder.add(exportFunctions, 'hdr').name('HDR');
 		exportFolder.add(exportFunctions, 'dds').name('DDS (coming soon)').disable();
