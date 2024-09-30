@@ -1,13 +1,13 @@
 import { SimpleDropzone } from 'simple-dropzone';
 import { PMREMGenerator } from 't3d/addons/textures/PMREMGenerator.js';
+import { RGBETexture2DLoader } from 't3d/examples/jsm/loaders/RGBELoader.js';
+import { EXRTexture2DLoader } from 't3d/examples/jsm/loaders/EXRLoader.js';
+import { EnvTextureCubeLoader } from 't3d/addons/loaders/EnvLoader.js';
 import { Viewer } from './Viewer.js';
 import { UIControl } from './UIControl.js';
-import { HDRTextureLoader } from './loaders/HDRTextureLoader.js';
-import { EXRTextureLoader } from './loaders/EXRTextureLoader.js';
 import { EnvExporter } from './exporters/EnvExporter.js';
 import { RGBEExporter } from './exporters/RGBEExporter.js';
 import { ImageTextureLoader } from './loaders/ImageTextureLoader.js';
-import { EnvTextureCubeLoader } from 't3d/addons/loaders/EnvLoader.js';
 
 export class App {
 
@@ -25,8 +25,8 @@ export class App {
 		// loaders
 
 		this.imageTextureLoader = new ImageTextureLoader();
-		this.hdrTextureLoader = new HDRTextureLoader();
-		this.exrTextureLoader = new EXRTextureLoader();
+		this.hdrTextureLoader = new RGBETexture2DLoader();
+		this.exrTextureLoader = new EXRTexture2DLoader();
 		this.envTextureCubeLoader = new EnvTextureCubeLoader();
 
 		// exporters
