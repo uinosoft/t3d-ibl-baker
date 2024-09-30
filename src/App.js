@@ -97,6 +97,7 @@ export class App {
 
 				this.viewer.setCubeTexture(texture);
 				this.viewer.rotationY = 0; // reset rotation to 0
+				this.uiCtrl.refreshExportOptions();
 
 				URL.revokeObjectURL(fileURL);
 

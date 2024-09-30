@@ -1,45 +1,105 @@
-import { GUI } from 'lil-gui';
+import { Pane } from 'tweakpane';
+import * as EssentialsPlugin from '@tweakpane/plugin-essentials';
 
 export class UIControl {
 
 	constructor(app) {
-		const gui = new GUI({ title: 'Options' });
+		const pane = new Pane();
+		pane.registerPlugin(EssentialsPlugin);
 
 		const { viewer, envExporter, hdrExporter } = app;
 
-		const previewFolder = gui.addFolder('Preview');
-		previewFolder.add(viewer, 'backgroundLevel', 0, 10, 0.1).name('Background Level');
+		// Preview
 
-		const environmentFolder = previewFolder.addFolder('Environment').close();
-		environmentFolder.add(viewer, 'envDiffuseIntensity', 0, 2, 0.1).name('Environment Diffuse');
-		environmentFolder.add(viewer, 'envSpecularIntensity', 0, 2, 0.1).name('Environment Specular');
+		const previewFolder = pane.addFolder({ title: 'Preview' });
+		previewFolder.addBinding(viewer, 'backgroundLevel', {
+			label: 'SkyRoughness',
+			min: 0,
+			max: 10,
+			step: 0.1
+		});
 
-		const testObjectFolder = previewFolder.addFolder('Test Object').close();
-		testObjectFolder.add(viewer.testObject, 'type', viewer.testObject.Types).name('Type');
-		testObjectFolder.add(viewer.testObject, 'roughness', 0, 1, 0.01).name('Roughness');
-		testObjectFolder.add(viewer.testObject, 'metalness', 0, 1, 0.01).name('Metalness');
+		const environmentFolder = previewFolder.addFolder({ title: 'Environment Intensity', expanded: false });
+		environmentFolder.addBinding(viewer, 'envDiffuseIntensity', {
+			label: 'Diffuse',
+			min: 0,
+			max: 2,
+			step: 0.1
+		});
+		environmentFolder.addBinding(viewer, 'envSpecularIntensity', {
+			label: 'Specular',
+			min: 0,
+			max: 2,
+			step: 0.1
+		});
 
-		const exportFunctions = {
-			'env': async () => {
-				const buffer = await envExporter.toBuffer(viewer);
-				loadFile(buffer, 'env');
-			},
-			'hdr': () => {
-				const buffer = hdrExporter.toBuffer(viewer);
-				loadFile(buffer, 'hdr');
-			},
-			'dds': () => {}
-		};
+		const reflectionFolder = previewFolder.addFolder({ title: 'Reflective Object', expanded: false });
 
-		const exportFolder = gui.addFolder('Export');
-		exportFolder.add(viewer, 'rotationY', 0, 360).name('Rotation Y').listen();
-		exportFolder.add(viewer, 'exposure', 0, 10).name('Exposure').disable();
-		exportFolder.add(viewer, 'downScale', 1, 8, 1).name('Down Scale').disable();
-		exportFolder.add(exportFunctions, 'env').name('Env');
-		exportFolder.add(exportFunctions, 'hdr').name('HDR');
-		exportFolder.add(exportFunctions, 'dds').name('DDS (coming soon)').disable();
+		const types = ['None', 'Sphere', 'Box'];
+		reflectionFolder.addBinding(viewer.testObject, 'type', {
+			label: 'Type',
+			view: 'radiogrid',
+			groupName: 'type',
+			size: [3, 1],
+			cells: x => ({
+				title: types[x],
+				value: viewer.testObject.Types[types[x]]
+			})
+		});
+		reflectionFolder.addBinding(viewer.testObject, 'roughness', {
+			label: 'Roughness',
+			min: 0,
+			max: 1,
+			step: 0.01
+		});
+		reflectionFolder.addBinding(viewer.testObject, 'metalness', {
+			label: 'Metalness',
+			min: 0,
+			max: 1,
+			step: 0.01
+		});
 
-		this._gui = gui;
+		// Export
+
+		const exportFolder = pane.addFolder({ title: 'Export' });
+
+		const optionsFolder = exportFolder.addFolder({ title: 'Options' });
+		optionsFolder.addBinding(viewer, 'rotationY', {
+			label: 'RotationY',
+			min: 0,
+			max: 360
+		});
+		optionsFolder.addBinding(viewer, 'exposure', {
+			label: 'Exposure',
+			min: 0,
+			max: 10,
+			disabled: true
+		});
+		optionsFolder.addBinding(viewer, 'downScale', {
+			label: 'DownScale',
+			min: 1,
+			max: 8,
+			step: 1,
+			disabled: true
+		});
+
+		exportFolder.addButton({ title: 'Env' }).on('click', async () => {
+			const buffer = await envExporter.toBuffer(viewer);
+			loadFile(buffer, 'env');
+		});
+		exportFolder.addButton({ title: 'HDR' }).on('click', () => {
+			const buffer = hdrExporter.toBuffer(viewer);
+			loadFile(buffer, 'hdr');
+		});
+		exportFolder.addButton({ title: 'DDS (coming soon)', disabled: true });
+
+		//
+
+		this._exportOptionsFolder = optionsFolder;
+	}
+
+	refreshExportOptions() {
+		this._exportOptionsFolder.refresh();
 	}
 
 }
