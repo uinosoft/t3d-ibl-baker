@@ -1,8 +1,9 @@
-import { Scene, Camera, TEXEL_ENCODING_TYPE, Vector3, PBRMaterial, DRAW_SIDE, Mesh, SphereGeometry, Object3D, BoxGeometry, Euler, Quaternion } from 't3d';
+import { Scene, Camera, TEXEL_ENCODING_TYPE, Vector3, PBRMaterial, DRAW_SIDE, Mesh, SphereGeometry, Object3D, Euler, Quaternion } from 't3d';
 import { ForwardRenderer } from 't3d/addons/render/ForwardRenderer.js';
 import { SkyBox } from 't3d/addons/objects/SkyBox.js';
 import { OrbitControls } from 't3d/addons/controls/OrbitControls.js';
 import { ViewControls } from 't3d/addons/controls/ViewControls.js';
+import { GLTFLoader } from 't3d/addons/loaders/glTF/GLTFLoader.js';
 
 export class Viewer {
 
@@ -196,13 +197,19 @@ class TestObject extends Object3D {
 		sphere.visible = false;
 		this.add(sphere);
 
-		const box = new Mesh(new BoxGeometry(30, 30, 30), material);
-		box.visible = false;
-		this.add(box);
+		const monkey = new Object3D();
+		new GLTFLoader().load('./assets/suzanne.glb').then(({ root }) => {
+			root.children[0].material = material;
+			root.scale.set(20, 20, 20);
+			monkey.add(root);
+		});
+		this.add(monkey);
 
 		this._type = Types.None;
+
 		this._sphere = sphere;
-		this._box = box;
+		this._monkey = monkey;
+
 		this._material = material;
 	}
 
@@ -210,7 +217,7 @@ class TestObject extends Object3D {
 		this._type = value;
 
 		this._sphere.visible = value === Types.Sphere;
-		this._box.visible = value === Types.Box;
+		this._monkey.visible = value === Types.Monkey;
 	}
 
 	get type() {
@@ -236,9 +243,9 @@ class TestObject extends Object3D {
 }
 
 const Types = {
+	None: 'none',
 	Sphere: 'sphere',
-	Box: 'box',
-	None: 'none'
+	Monkey: 'monkey'
 };
 
 TestObject.prototype.Types = Types;

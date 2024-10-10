@@ -35,7 +35,7 @@ export class UIControl {
 
 		const reflectionFolder = previewFolder.addFolder({ title: 'Reflective Object', expanded: false });
 
-		const types = ['None', 'Sphere', 'Box'];
+		const types = Object.keys(viewer.testObject.Types);
 		reflectionFolder.addBinding(viewer.testObject, 'type', {
 			label: 'Type',
 			view: 'radiogrid',
