@@ -1,4 +1,5 @@
 import { SimpleDropzone } from 'simple-dropzone';
+import * as fflate from 'fflate';
 import { PMREMGenerator } from 't3d/addons/textures/PMREMGenerator.js';
 import { RGBETexture2DLoader } from 't3d/examples/jsm/loaders/RGBELoader.js';
 import { EXRTexture2DLoader } from 't3d/examples/jsm/loaders/EXRLoader.js';
@@ -23,6 +24,8 @@ export class App {
 		this.pmremGenerator.legacy = false;
 
 		// loaders
+
+		EXRTexture2DLoader.setfflate(fflate);
 
 		this.imageTextureLoader = new ImageTextureLoader();
 		this.hdrTextureLoader = new RGBETexture2DLoader();
